@@ -1,15 +1,11 @@
 const Koa = require('koa');
+const bodyParser = require('koa-bodyparser')
+const userRouter = require('../router/user.router')
 
-const Router = require('koa-router');
 
 const app = new Koa();
 
-const userRouter = new Router({prefix:'/users'});
-
-userRouter.post('/', (ctx, next) => {
-    ctx.body = '创建用户成功~'
-})
-
+app.use(bodyParser())
 app.use(userRouter.routes());
 app.use(userRouter.allowedMethods());
 

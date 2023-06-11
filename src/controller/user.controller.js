@@ -12,7 +12,8 @@ class UserController {
             message:'请求成功',
             data: {
                 ...req
-            }
+            },
+            res
         }
     }
 }

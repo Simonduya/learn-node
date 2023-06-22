@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    async function regist(config) {
+      const { name, password } = config;
+      const response = await fetch('http://localhost:8000/users', {
+        method: 'POST', // 设置请求方法为POST
+        headers: {
+          'Content-Type': 'application/json' // 设置请求头的Content-Type
+        },
+        body: JSON.stringify({ name, password }) // 将请求参数放在body中
+      });
+      return response.json(); // 返回响应的JSON数据
+    }
+
+    async function clickRegist(config) {
+      try {
+        const res = await regist(config);
+        console.log(res);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    clickRegist({
+      name: 'li',
+      password: '123456'
+    });
+
+  </script>
+</body>
+
+</html>

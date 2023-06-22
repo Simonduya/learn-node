@@ -9,6 +9,7 @@
 
 <body>
   <script>
+    // 注册接口
     async function regist(config) {
       const { name, password } = config;
       const response = await fetch('http://localhost:8000/users', {
@@ -30,11 +31,44 @@
       }
     }
 
-    clickRegist({
-      name: 'li',
-      password: '123456'
-    });
+    function mapClickRegist() {
+      let userName = ['login'];
+      userName.map((name) => {
+        const config = {
+          name,
+          password: '12346'
+        }
+        clickRegist(config)
+      })
+    }
+    // mapClickRegist()
 
+    // 登录接口
+    async function login(config) {
+      const { name, password } = config;
+      const response = await fetch('http://localhost:8000/login', {
+        method: 'POST', // 设置请求方法为POST
+        headers: {
+          'Content-Type': 'application/json' // 设置请求头的Content-Type
+        },
+        body: JSON.stringify({ name, password }) // 将请求参数放在body中
+      });
+      return response.json(); // 返回响应的JSON数据
+    }
+
+    async function clickLogin(config) {
+      try {
+        const res = await login(config);
+        console.log(res);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    clickLogin({
+      name:'login',
+      password:'12346'
+    })
   </script>
 </body>
 

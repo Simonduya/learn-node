@@ -1,6 +1,6 @@
-const jwt = require('jsonwebtoken')
 const { PRIVATE_KEY } = require('../config/screct')
-const { UNAUTHORIZATION } = require('../config/error')
+const jwt = require('jsonwebtoken')
+
 class LoginController {
   sign(ctx, next) {
     // 1. 获取用户信息

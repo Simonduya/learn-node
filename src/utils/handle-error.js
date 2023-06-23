@@ -1,5 +1,5 @@
 const app = require('../app')
-const { NAME_IS_ALREADY_EXISTS, NAME_OR_PASSWOES_IS_REQUIRED, NAME_IS_NOT_EXISTS, PASSWOED_IS_INCORRENT } = require('../config/error')
+const { NAME_IS_ALREADY_EXISTS, NAME_OR_PASSWOES_IS_REQUIRED, NAME_IS_NOT_EXISTS, PASSWOED_IS_INCORRENT, UNAUTHORIZATION } = require('../config/error')
 app.on('error', (error, ctx) => {
   let code = 0;
   let message = '';
@@ -19,6 +19,10 @@ app.on('error', (error, ctx) => {
     case PASSWOED_IS_INCORRENT:
       code = -1004
       message = '登录的密码错误'
+      break
+    case UNAUTHORIZATION:
+      code = -1005
+      message = '无效的token或者token已经过期'
       break
   }
 

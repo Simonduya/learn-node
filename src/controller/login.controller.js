@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken')
 const { PRIVATE_KEY } = require('../config/screct')
+const { UNAUTHORIZATION } = require('../config/error')
 class LoginController {
   sign(ctx, next) {
     // 1. 获取用户信息
@@ -18,6 +19,9 @@ class LoginController {
     } catch(e) {
       console.log(e);
     }
+  }
+  test(ctx, next) {
+    ctx.body = '验证身份通过'
   }
 }
 

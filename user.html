@@ -42,7 +42,7 @@
       })
     }
     // mapClickRegist()
-
+    let token = '';
     // 登录接口
     async function login(config) {
       const { name, password } = config;
@@ -59,16 +59,41 @@
     async function clickLogin(config) {
       try {
         const res = await login(config);
-        console.log(res);
+        token = res?.data?.token;
+      } catch (error) {
+        console.error(error);
+      }
+      clickTestLogin({
+        name: 'login',
+        password: '12346'
+      })
+    }
+
+    clickLogin({
+      name: 'login',
+      password: '12346'
+    })
+    // 测试登录接口
+    async function testLogin(config) {
+      // const { name, password } = config;
+      const response = await fetch('http://localhost:8000/login/test', {
+        method: 'GET', // 设置请求方法为POST
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          // 'Content-Type': 'application/json' // 设置请求头的Content-Type
+        },
+      });
+      return response.json(); // 返回响应的JSON数据
+    }
+    async function clickTestLogin(config) {
+      try {
+        const res = await testLogin(config);
       } catch (error) {
         console.error(error);
       }
     }
 
-    clickLogin({
-      name:'login',
-      password:'12346'
-    })
+
   </script>
 </body>
 

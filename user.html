@@ -63,9 +63,14 @@
       } catch (error) {
         console.error(error);
       }
+      // 测试登录
       clickTestLogin({
         name: 'login',
         password: '12346'
+      })
+      // 发表评论
+      clickSendMoment({
+        content: 'ikun永远'
       })
     }
 
@@ -93,6 +98,26 @@
       }
     }
 
+    // 测试发表评论接口
+    async function sendMoment(config) {
+      const { content } = config;
+      const response = await fetch('http://localhost:8000/moment', {
+        method: 'POST', // 设置请求方法为POST
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json' // 设置请求头的Content-Type
+        },
+        body: JSON.stringify({ content })
+      });
+      return response.json(); // 返回响应的JSON数据
+    }
+    async function clickSendMoment(config) {
+      try {
+        const res = await sendMoment(config);
+      } catch (error) {
+        console.error(error);
+      }
+    }
 
   </script>
 </body>

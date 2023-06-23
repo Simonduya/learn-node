@@ -28,8 +28,11 @@ const verifyLogin = async (ctx, next) => {
 
 const verifyAuth = async (ctx, next) => {
   // 1. 获取token
-    const authorization = ctx.headers.authorization
-    const token = authorization.replace('Bearer ', '');
+  const authorization = ctx.headers.authorization
+  if (!authorization) {
+    return ctx.app.emit('error', UNAUTHORIZATION, ctx)
+  }
+  const token = authorization.replace('Bearer ', '');
   // 2. 验证token是否有效
   try {
     const result = jwt.verify(token, PUBLIC_KEY, {
@@ -41,7 +44,7 @@ const verifyAuth = async (ctx, next) => {
     // ctx.body = `可以访问login/test接口`
     // 3. 执行下一个中间件
     await next()
-  } catch(err) {
+  } catch (err) {
     console.log(err, '验证的err')
     ctx.app.emit('error', UNAUTHORIZATION, ctx)
   }

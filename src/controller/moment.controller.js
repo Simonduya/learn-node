@@ -16,6 +16,32 @@ class MomentController {
       data: result
     }
   }
+
+  async list(ctx, next) {
+    // 获取分页查询参数
+    const { offset, size } = ctx.query
+    // 从数据库中查询评论列表
+    const result = await momentService.queryList(size, offset)
+
+    // 返回数据
+    ctx.body = {
+      code: 0,
+      data: result,
+    }
+  }
+
+  async detail(ctx, next) {
+    // 1.获取动态的id
+    const { momentId } = ctx.params;
+    console.log(momentId, 'mId');
+    // 2. 根据id查询动态详情
+    const result = await momentService.queryById(momentId);
+
+    ctx.body = {
+      code: 0,
+      data: result
+    }
+  }
 }
 
 module.exports = new MomentController()

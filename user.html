@@ -64,13 +64,22 @@
         console.error(error);
       }
       // 测试登录
-      clickTestLogin({
-        name: 'login',
-        password: '12346'
-      })
+      // clickTestLogin({
+      //   name: 'login',
+      //   password: '12346'
+      // })
       // 发表评论
-      clickSendMoment({
-        content: 'ikun永远'
+      // clickSendMoment({
+      //   content: 'ikun永远'
+      // })
+      // 获取评论列表
+      clickGetMoment({
+        size: 10,
+        offset: 10
+      });
+      // 通过momentId获取评论
+      clickGetMomentById({
+        momentId: '1'
       })
     }
 
@@ -119,6 +128,40 @@
       }
     }
 
+
+    // 获取评论列表接口
+    async function queryMoment(config) {
+      const { size, offset } = config;
+      const response = await fetch(`http://localhost:8000/moment?size=${size}&offset=${offset}`);
+      return response.json(); // 返回响应的JSON数据
+    }
+
+    async function clickGetMoment(config) {
+      try {
+        const res = await queryMoment(config);
+        // 处理响应数据
+        console.log(res);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    // 通过momentId获取评论列表接口
+    async function queryMomentById(config) {
+      const { momentId } = config;
+      const response = await fetch(`http://localhost:8000/moment/${momentId}`);
+      return response.json(); // 返回响应的JSON数据
+    }
+
+    async function clickGetMomentById(config) {
+      try {
+        const res = await queryMomentById(config);
+        // 处理响应数据
+        console.log(res);
+      } catch (error) {
+        console.error(error);
+      }
+    }
   </script>
 </body>
 
